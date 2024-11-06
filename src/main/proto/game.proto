@@ -1,0 +1,64 @@
+syntax = "proto3";
+
+option go_package = "github.com/luisg6/common/game";
+option java_package = "com.example.game";
+
+import 'google/protobuf/empty.proto';
+
+service GameService {
+    rpc StartGame (Lobby) returns (StartGameResponse);
+    rpc SubmitAnswer (SubmitAnswerRequest) returns (SubmitAnswerResponse);
+    rpc GetGameState (google.protobuf.Empty) returns (GameState);
+    rpc ShowScores (google.protobuf.Empty) returns (ShowScoreResponse);
+}
+
+enum CardType {
+    UNKNOWN_ODS = 0;
+    ODS_1 = 1;
+    ODS_2 = 2;
+    ODS_3 = 3;
+    ODS_4 = 4;
+    ODS_5 = 5;
+    ODS_6 = 6;
+    ODS_7 = 7;
+    ODS_8 = 8;
+    ODS_9 = 9;
+    ODS_10 = 10;
+    ODS_11 = 11;
+    ODS_12 = 12;
+    ODS_13 = 13;
+    ODS_14 = 14;
+    ODS_15 = 15;
+    ODS_16 = 16;
+    ODS_17 = 17;
+
+}
+
+message Lobby {
+    repeated string players_id = 1;
+}
+
+
+message StartGameResponse {
+    repeated CardType sequence = 1;
+}
+
+message SubmitAnswerRequest {
+    string player_id = 2;
+    repeated CardType answer = 3;
+    int64 timestamp = 4;
+}
+
+message SubmitAnswerResponse {
+    string player_id = 1;
+    int32 score = 2; 
+}
+
+message ShowScoreResponse {
+    repeated SubmitAnswerResponse scores = 1;
+}
+
+message GameState {
+    repeated string players = 2;
+    repeated CardType sequence = 3;
+}

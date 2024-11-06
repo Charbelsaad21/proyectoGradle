@@ -1,0 +1,23 @@
+syntax = "proto3";
+
+option go_package = "github.com/luisg6/common/lobby";
+option java_package = "com.example.lobby";
+
+service LobbyService {
+    rpc JoinRoom(JoinRoomRequest) returns (stream StreamJoinRoomResponse);
+}
+
+
+message JoinRoomRequest {
+    string player_id = 2;
+}
+
+message StreamJoinRoomResponse {
+    repeated Player other_players = 2;
+    Player me = 3;
+    int32 max_players = 4;
+}
+
+message Player {
+    string player_id = 1;
+}
